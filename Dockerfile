@@ -1,4 +1,3 @@
-# Primeiro est�gio: Construir o Flexget
 FROM docker.io/python:3.11-alpine as builder
 ENV PYTHONUNBUFFERED 1
 
@@ -10,12 +9,16 @@ RUN apk add --no-cache --upgrade \
         cargo && \
     rm -rf /var/cache/apk/*
 
-COPY pendulum-3.0.0-py3-none-any.whl .
-RUN pip install pendulum-3.0.0-py3-none-any.whl && \
-    pip install -U pip && \
-    pip install --no-cache-dir FlexGet
+# Copie o arquivo .whl para o diretório de cache do pip
+# COPY pendulum-3.0.0-py3-none-any.whl .
 
-# Segundo est�gio: Copiar o Flexget constru�do para a imagem final
+# Atualize o pip e instale as dependências em uma única instrução RUN
+RUN pip install -U pip && \
+    pip install --no-cache-dir --find-links=./ -r https://raw.githubusercontent.com/Flexget/Flexget/develop/requirements.txt
+
+# Instale o FlexGet em uma camada separada
+RUN pip install --no-cache-dir FlexGet
+
 FROM docker.io/python:3.11-alpine
 ENV PYTHONUNBUFFERED 1
 
