@@ -8,6 +8,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      MANUAL_RUN: ${{ github.event_name == 'workflow_dispatch' }}
 
     steps:
     - name: Check out code
@@ -27,19 +29,22 @@ jobs:
       run: |
         VERSION=$(curl --silent "https://api.github.com/repos/Flexget/Flexget/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
         echo "LATEST_VERSION=${VERSION}" >> $GITHUB_ENV
+      if: env.MANUAL_RUN == 'false'
 
     - name: Check if image exists on DockerHub
       id: check_image
       run: |
         EXISTS=$(curl --silent -f -lSL https://hub.docker.com/v2/repositories/diogosena/flexget-armv7/tags/${{ env.LATEST_VERSION }} > /dev/null && echo "yes" || echo "no")
         echo "IMAGE_EXISTS=${EXISTS}" >> $GITHUB_ENV
+      if: env.MANUAL_RUN == 'false'
 
     - name: Build and push Docker image with version and latest tags
-      if: env.IMAGE_EXISTS == 'no'    
+      if: env.IMAGE_EXISTS == 'no' || env.MANUAL_RUN == 'true'    
       uses: docker/build-push-action@v2
       with:
         context: .
         push: true
         platforms: linux/arm/v7
         tags: diogosena/flexget-armv7:${{ env.LATEST_VERSION }},diogosena/flexget-armv7:latest
-
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
