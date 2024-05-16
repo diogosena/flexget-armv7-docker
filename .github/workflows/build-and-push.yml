@@ -29,7 +29,6 @@ jobs:
       run: |
         VERSION=$(curl --silent "https://api.github.com/repos/Flexget/Flexget/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
         echo "LATEST_VERSION=${VERSION}" >> $GITHUB_ENV
-      if: env.MANUAL_RUN == 'false'
 
     - name: Check if image exists on DockerHub
       id: check_image
