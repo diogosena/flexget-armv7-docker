@@ -29,4 +29,4 @@ COPY --from=builder /usr/local /usr/local
 VOLUME /config
 WORKDIR /config
 
-CMD rm -f /config/.config-lock && pip install -U flexget && flexget daemon start --autoreload-config
+CMD rm -f /config/.config-lock && flexget daemon start --autoreload-config
