@@ -33,4 +33,5 @@ jobs:
       with:
         context: .
         push: true
+        platforms: linux/arm/v7        
         tags: diogosena/flexget-armv7:${{ env.LATEST_VERSION }}
