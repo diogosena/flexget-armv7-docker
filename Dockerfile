@@ -6,17 +6,15 @@ RUN apk add --no-cache --upgrade \
         build-base \
         libffi-dev \
         rust \
-        cargo && \
-    rm -rf /var/cache/apk/*
+        cargo
 
-# Copie o arquivo .whl para o diretório de cache do pip
 COPY pendulum-3.0.0-py3-none-any.whl .
 
-# Atualize o pip e instale as dependências em uma única instrução RUN
-RUN pip install -U pip && \
-    pip install --no-cache-dir --find-links=./ -r https://raw.githubusercontent.com/Flexget/Flexget/develop/requirements.txt
+ADD https://raw.githubusercontent.com/Flexget/Flexget/develop/requirements.txt .
 
-# Instale o FlexGet em uma camada separada
+RUN pip install -U pip && \
+    pip install --no-cache-dir --find-links=./ -r requirements.txt
+
 RUN pip install --no-cache-dir FlexGet
 
 FROM docker.io/python:3.11-alpine
