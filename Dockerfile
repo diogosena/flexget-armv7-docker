@@ -10,7 +10,7 @@ RUN apk add --no-cache --upgrade \
     rm -rf /var/cache/apk/*
 
 # Copie o arquivo .whl para o diretório de cache do pip
-# COPY pendulum-3.0.0-py3-none-any.whl .
+COPY pendulum-3.0.0-py3-none-any.whl .
 
 # Atualize o pip e instale as dependências em uma única instrução RUN
 RUN pip install -U pip && \
