@@ -28,6 +28,5 @@ RUN apk add --no-cache --upgrade \
 COPY --from=builder /usr/local /usr/local
 
 VOLUME /config
-WORKDIR /config
 
-CMD rm -f /config/.config-lock && flexget daemon start --autoreload-config
+CMD ["rm", "-f", "/config/.config-lock", "&&", "flexget", "daemon", "start", "--autoreload-config"]
