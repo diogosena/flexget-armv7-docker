@@ -27,7 +27,7 @@ RUN pip install --no-cache-dir FlexGet
 
 FROM base
 
-COPY --from=builder /usr/local/lib /usr/local/lib
+COPY --from=builder /usr/local /usr/local
 
 VOLUME /config
 WORKDIR /config
