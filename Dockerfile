@@ -19,15 +19,16 @@ COPY pendulum-3.0.0-py3-none-any.whl .
 ADD https://raw.githubusercontent.com/Flexget/Flexget/develop/requirements.txt .
 
 RUN pip install -U pip && \
-    pip install --no-cache-dir --find-links=./ -r requirements.txt
+    pip install --no-cache-dir --prefix=/install --find-links=./ -r requirements.txt
 
+#ADD https://raw.githubusercontent.com/Flexget/Flexget/develop/flexget/_version.py .
 ADD https://api.github.com/repos/Flexget/Flexget/releases/latest .
 
-RUN pip install --no-cache-dir FlexGet
+RUN pip install --no-cache-dir --prefix=/install FlexGet
 
 FROM base
 
-COPY --from=builder /usr/local /usr/local
+COPY --from=builder /install /usr/local
 
 VOLUME /config
 WORKDIR /config
