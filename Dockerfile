@@ -21,7 +21,9 @@ ADD https://raw.githubusercontent.com/Flexget/Flexget/develop/requirements.txt .
 RUN pip install -U pip && \
     pip install --no-cache-dir --find-links=./ -r requirements.txt
 
-RUN pip install --no-cache-dir FlexGet && echo $(date)
+ADD https://api.github.com/repos/Flexget/Flexget/releases/latest .
+
+RUN pip install --no-cache-dir FlexGet
 
 FROM base
 
