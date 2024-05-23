@@ -3,8 +3,7 @@ ENV PYTHONUNBUFFERED 1
 
 RUN apk add --no-cache --upgrade \
         ca-certificates \
-        tzdata && \
-    rm -rf /var/cache/apk/*
+        tzdata
 
 FROM base as builder
 
@@ -21,7 +20,6 @@ ADD https://raw.githubusercontent.com/Flexget/Flexget/develop/requirements.txt .
 RUN pip install -U pip && \
     pip install --no-cache-dir --prefix=/install --find-links=./ -r requirements.txt
 
-#ADD https://raw.githubusercontent.com/Flexget/Flexget/develop/flexget/_version.py .
 ADD https://api.github.com/repos/Flexget/Flexget/releases/latest .
 
 RUN pip install --no-cache-dir --prefix=/install FlexGet
