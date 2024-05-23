@@ -38,7 +38,7 @@ jobs:
       if: env.MANUAL_RUN == 'false'
 
     - name: Build and push Docker image with version and latest tags
-      if: env.IMAGE_EXISTS == 'no' || env.MANUAL_RUN == 'true'    
+      #if: env.IMAGE_EXISTS == 'no' || env.MANUAL_RUN == 'true'    
       uses: docker/build-push-action@v5
       with:
         context: .
