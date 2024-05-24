@@ -15,12 +15,13 @@ RUN apk add --no-cache --upgrade \
 
 COPY pendulum-3.0.0-py3-none-any.whl .
 
-ADD https://raw.githubusercontent.com/Flexget/Flexget/develop/requirements.txt .
+ADD https://raw.githubusercontent.com/Flexget/Flexget/master/requirements.txt .
 
 RUN pip install -U pip && \
     pip install --no-cache-dir --find-links=./ --user -r requirements.txt
 
-ADD https://api.github.com/repos/Flexget/Flexget/releases/latest .
+ADD https://raw.githubusercontent.com/Flexget/Flexget/master/flexget/_version.py .
+#ADD https://api.github.com/repos/Flexget/Flexget/releases/latest .
 
 RUN pip install --no-cache-dir --user FlexGet
 
