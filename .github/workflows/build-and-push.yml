@@ -2,7 +2,7 @@ name: Build and Push Docker Image
 
 on:
   schedule:
-    - cron: '0 0 * * *' # Executa todos os dias à meia-noite
+    - cron: '0 */2 * * *' # Executa todos os dias à meia-noite
   workflow_dispatch: # Permite execuções manuais    
 
 jobs:
