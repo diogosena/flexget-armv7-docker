@@ -1,4 +1,4 @@
-FROM docker.io/python:alpine as base
+FROM docker.io/python:3.11-alpine as base
 ENV PYTHONUNBUFFERED 1
 
 RUN apk add --no-cache --upgrade \
