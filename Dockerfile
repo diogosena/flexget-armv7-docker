@@ -18,7 +18,7 @@ COPY pendulum-3.0.0-py3-none-any.whl .
 ADD https://raw.githubusercontent.com/Flexget/Flexget/master/requirements.txt .
 
 RUN pip install -U pip && \
-    pip install --no-cache-dir --find-links=./ --extra-index-url https://www.piwheels.org/simple --user -r requirements.txt
+    pip install --no-cache-dir --find-links=./ --user -r requirements.txt
 
 ADD https://raw.githubusercontent.com/Flexget/Flexget/master/flexget/_version.py .
 
